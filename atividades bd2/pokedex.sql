@@ -176,14 +176,12 @@ END //
 
 DELIMITER //
 
-DELIMITER //
-
 CREATE TRIGGER tr_somente_minusculo_tb_pokemon
 BEFORE INSERT ON tb_pokemon
 FOR EACH ROW
 BEGIN
     SET NEW.nome = LOWER(NEW.nome);
-    SET NEW.descricao = LOWER(descricao);
+    SET NEW.descricao = LOWER(NEW.descricao);
 END //
 
 DELIMITER ;
@@ -229,32 +227,6 @@ END //
 
 DELIMITER ;
 
-
 ########################################################################################################
-SELECT 
-    p.id AS numero_pokedex,
-    fn_deixa_tudo_minusculo(p.nome) AS nome_pokemon,
-    GROUP_CONCAT(DISTINCT fn_deixa_tudo_minusculo(t.nome) ORDER BY t.nome ASC SEPARATOR ' ou ') AS tipo,
-    fn_deixa_tudo_minusculo(h.nome) AS habilidade,
-    fn_deixa_tudo_minusculo(h.descricao) AS descricao_habilidade
-FROM 
-    tb_pokemon p
-JOIN 
-    tb_pokemon_tipo pt ON p.id = pt.id_pokemon
-JOIN 
-    tb_tipo t ON pt.id_tipo = t.id
-JOIN 
-    tb_pokemon_habilidade ph ON p.id = ph.id_pokemon
-JOIN 
-    tb_habilidade h ON ph.id_habilidade = h.id
-GROUP BY 
-    p.id, p.nome, h.nome, h.descricao
-ORDER BY 
-    p.id;
-##############################################################################################
-
-
-
-
 
 /*DROP DATABASE db_pokedex;*/
