@@ -176,14 +176,59 @@ END //
 
 DELIMITER //
 
-CREATE FUNCTION fn_deixa_tudo_minusculo(entrada VARCHAR(255))
-RETURNS VARCHAR(255)
-DETERMINISTIC
+DELIMITER //
+
+CREATE TRIGGER tr_somente_minusculo_tb_pokemon
+BEFORE INSERT ON tb_pokemon
+FOR EACH ROW
 BEGIN
-    RETURN LOWER(entrada);
+    SET NEW.nome = LOWER(NEW.nome);
+    SET NEW.descricao = LOWER(descricao);
 END //
 
 DELIMITER ;
+
+DELIMITER //
+
+CREATE TRIGGER tr_somente_minusculo_tb_pokemon_tb_tipo
+BEFORE INSERT ON tb_tipo
+FOR EACH ROW
+BEGIN
+    SET NEW.nome = LOWER(NEW.nome);
+END //
+
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER tr_somente_minusculo_tb_pokemon_tb_evolucao
+BEFORE INSERT ON tb_evolucao
+FOR EACH ROW
+BEGIN
+    SET NEW.nome = LOWER(NEW.nome);
+END //
+
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER tr_somente_minusculo_tb_pokemon_tb_fraqueza
+BEFORE INSERT ON tb_fraqueza
+FOR EACH ROW
+BEGIN
+    SET NEW.nome = LOWER(NEW.nome);
+END //
+
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER tr_somente_minusculo_tb_pokemon_tb_habilidade
+BEFORE INSERT ON tb_habilidade
+FOR EACH ROW
+BEGIN
+    SET NEW.nome = LOWER(NEW.nome);
+END //
+
+DELIMITER ;
+
 
 ########################################################################################################
 SELECT 
